@@ -3,6 +3,8 @@ const User = require("../models/user.model");
 const ForgotPassword = require("../models/forgot-password.model");
 const generateHelper = require("../../../helpers/generate");
 const sendMailHelper = require("../../../helpers/sendMail");
+const genericHelper = require("../../../helpers/generate");
+
 
 // [POST] /api/v1/users/register
 module.exports.register = async (req, res) => {
@@ -25,6 +27,7 @@ module.exports.register = async (req, res) => {
                 fullName: req.body.fullName,
                 email: req.body.email,
                 password: req.body.password,
+                token: genericHelper.generateRandomString(30),
             });
 
             await user.save();

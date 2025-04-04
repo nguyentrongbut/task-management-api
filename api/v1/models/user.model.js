@@ -1,14 +1,10 @@
 const mongoose = require('mongoose');
-const genericHelper = require('../../../helpers/generate');
 
 const userSchema = new mongoose.Schema({
     fullName: String,
     email: String,
     password: String,
-    token: {
-        type: String,
-        default: genericHelper.generateRandomString(30)
-    },
+    token: String,
     deleted: {
         type: Boolean,
         default: false
