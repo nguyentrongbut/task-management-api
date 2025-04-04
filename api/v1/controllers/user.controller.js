@@ -231,3 +231,23 @@ module.exports.detail = async (req, res) => {
         info: req.user
     })
 }
+
+// [GET] /api/v1/users/list
+module.exports.list = async (req, res) => {
+    try {
+        const users = await User.find({
+            deleted: false
+        }).select("fullName email");
+
+        res.json({
+            code: 200,
+            message: "Get user list success",
+            users: users
+        });
+    } catch (error) {
+        res.json({
+            code: 400,
+            message: "Get user list failed",
+        });
+    }
+}
