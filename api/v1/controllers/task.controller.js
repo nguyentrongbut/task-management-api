@@ -95,3 +95,42 @@ module.exports.changeStatus = async (req, res) => {
     }
 
 }
+
+
+// [PATCH] /api/v1/tasks/change-multi
+module.exports.changeMulti = async (req, res) => {
+    const {ids, key, value} = req.body;
+
+    try {
+        switch (key) {
+            case "status":
+                await Task.updateMany({
+                    _id: {
+                        $in: ids
+                    }
+                }, {
+                    status: value
+                })
+                res.json({
+                    code: 200,
+                    message: "Change status success",
+                });
+                break;
+
+            default:
+                res.json({
+                    code: 400,
+                    message: "Don't support this key",
+                });
+                break;
+        }
+
+
+    } catch (error) {
+        res.json({
+            code: 400,
+            message: "Change status failed",
+        });
+    }
+
+}
